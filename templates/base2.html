@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}
+{% endblock %}</title>
+  <style>
+      :root{
+          --font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;;
+        }
+        body{
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: var(--font);
+            display: flex;
+            justify-content: center;
+            margin: 0;
+            background-color: rgb(169, 169, 169);
+        }
+        .main{
+            height: 120px;
+            min-width: 355px;
+            margin: 2em;
+            background-color: rgba(red, green, blue, alpha);
+        }
+        .avatar{
+            display: inline;
+            padding-right: 1em;
+            
+        }
+        .message{
+            display: inline;
+            line-height: 1.6em;
+            margin-left: 0.4em;
+        }
+
+        .warning{
+            line-height: 1.6em;
+            margin-left: 0.4em;
+            color: rgba(255,0,0,0.5);
+            text-align: center;
+        }
+        .user{
+            height: 3em;
+        }
+        .user-input{
+            padding-left: 8px;
+            margin-top: 1em;
+            border-radius: 8px;
+            border: 1px;
+            height: 30px;
+            background-color: rgb(213, 213, 213);
+            transition: background-color 0.4s;
+            font-size: large;
+            font-family: var(--font);
+            width: 250px;
+        }
+        .user-input:focus{
+            outline: none;
+            background-color: rgb(221, 218, 218);
+            outline-offset: 0;
+        }
+        .button{
+            width: 3em;
+            height: 30px;
+            margin: 0;
+            padding: 0;
+            border-radius: 9px;
+            background-color: rgb(189, 189, 189);
+        }
+        .button:focus{
+            outline: none;
+        }
+        .cell{
+            display: flex;
+            justify-content: center;
+            min-width: 500px;
+        }
+        .bot{
+            height: 200px;
+            display: flex;
+            align-items: flex-end;
+        }
+        .buttons{
+            display: inline;
+            position: relative;
+            width: 3em;
+            margin-left: 10px;
+        
+        }
+        .abort{
+            position: absolute;
+            right: 0;
+            bottom: -6em;
+
+        }
+        .hide{
+            display: none;
+        }
+        </style>
+
+{% block head %}
+{% endblock %}
+
+</head>
+<body>
+    <div class="cell">
+        {% block body %}
+        {% endblock %}
+    </div>
+
+    {% block js %} 
+    {% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>grid</title>
+    <style>
+        body{
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            margin: 0;
+            background-color: rgb(169, 169, 169); 
+            padding-top: 20vh;  
+        }
+        .grid-container {
+            width: 60vw;
+            min-width: 500px;
+            display: grid;
+            grid-template-rows: repeat(3, 1fr);
+            
+        }
+        .line {
+            display: grid;
+            grid-template-columns: 1fr 4fr 1fr;
+            gap: 10px;
+            align-items: center;
+
+        }
+        .avatar{
+            text-align: right;
+        }
+        .button{
+            width: 3em;
+            height: 30px;
+            margin: 0;
+            padding: 0;
+            border-radius: 9px;
+            background-color: rgb(189, 189, 189);
+        }
+
+        .buttons{
+            display: flex;
+            justify-content: left;
+            align-items: center;
+            margin-left: 10px;
+        }
+        .user-input{
+            padding-left: 8px;
+            
+            border-radius: 8px;
+            border: 1px;
+            background-color: rgb(213, 213, 213);
+            transition: background-color 0.4s;
+            font-size: large;
+            font-family: var(--font);
+            width: 250px;
+        }    
+        .user-input:focus{
+            outline: none;
+            background-color: rgb(221, 218, 218);
+            outline-offset: 0;
+        }
+        .text{
+            width: 100%;
+        }
+
+
+    </style>
+</head>
+<body>
+  
+    <div class="grid-container">
+        <div id="bot" class="line">
+            <p class="b avatar">&#129302; :</p>
+            <p class="b text">{{bot_reply}}</p>
+            <div></div>
+        </div>
+        <form id="user" class="line">
+            <p class="b avatar">&#128100; :</p>
+            <input type="text" name=answer class="text user-input">
+            <div class="buttons">
+                <input class="button reply hide" type="submit" value="&#x21B5;">
+            </div>
+        </form>
+        <div id="abort" class="line">
+            <div></div>
+            <div></div>
+            <form>
+                <div class="buttons">
+                    <input class="button abort hide" type="submit" value="&#x1F6AB;">
+                </div>
+              </form>
+        </div>
+    </div>
+  
+
+      
+</div>
+</body>
+</html>

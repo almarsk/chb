@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{flow}}
+{% endblock %}
+
+{% block body %}
+
+
+      <div class="grid-container">
+          <div class="line">
+              <div></div>
+              <p class="text">Díky, že se účastníte vývoje chatbota jménem <em>{{flow}}</em>.<br>
+                Zde prosím vyplňte libovolnou <strong>přezdívku</strong>:</p>
+            </div>
+            <form id="user" class="line" method="POST" action="/">
+                <div>
+                    <p class="avatar">&#128100; :</p>
+                </div>
+                <div>
+                    <input type="text" class="text user-input">
+                </div>
+                <div class="buttons">
+                    <input class="nick-submit button" type="submit" value="&#x21B5;">
+                </div>
+            </form>
+        <div class="line">
+            <div></div>
+            <p class="warning hide">prosím vyplňte <strong>přezdívku</strong></p>
+        </div>
+      </div>
+
+ {% endblock %}
+
+ {% block js %}
+     <script type="text/javascript">
+            
+        let shouldSubmit = false;
+        const nickSubmit = document.querySelector(".nick-submit")
+        const message = document.querySelector(".text")
+        const avatar = document.querySelector(".avatar")
+        const userInput = document.querySelector(".user-input")
+        const warning = document.querySelector(".warning")
+        
+        nickSubmit.addEventListener("click", e=>{
+            e.preventDefault()
+
+            if (shouldSubmit){
+                event.target.form.submit();
+            } else {
+                if (!!userInput.value){ 
+                    message.innerHTML = "Můžeme začít.<br> Pokud bude robot říkat nesmysly, ukončete ho červeným tlačítkem."
+                    warning.classList.add("hide")
+                    avatar.classList.add("hide")
+                    userInput.classList.add("hide")
+                    shouldSubmit = true
+                } else {
+                    warning.classList.remove("hide")
+                }
+            }
+
+
+        })
+
+    </script>
+{% endblock %}
