@@ -18,7 +18,7 @@ app.config.update(
     TEMPLATES_AUTO_RELOAD=True,
     SECRET_KEY=secret_key,
     SESSION_COOKIE_SAMESITE="Lax",
-    REPLY_DELAY_MS=int(os.environ.get("CHATBOT_REPLY_DELAY_MS", 2000)),
+    REPLY_DELAY_MS=int(os.environ.get("CHATBOT_REPLY_DELAY_MS", 500)),
 )
 
 
@@ -61,7 +61,7 @@ def intro():
 
 
 def chat():
-    user_reply = request.form.get("answer")
+    user_reply = request.form.get("reply")
     cs = session.setdefault("cs", {})
     flow = import_module(session["flow"])
     bot_reply = flow.reply(user_reply, cs)

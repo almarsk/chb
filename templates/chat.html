@@ -12,9 +12,9 @@
       <p class="text loader">{{bot_reply}}</p>
       <div></div>
   </div>
-  <form id="user" class="line">
+  <form id="user" class="line" method=post action="{{ url_for('dispatcher') }}">
       <p class="avatar">&#128100; :</p>
-      <input type="text" name=answer class="text user-input">
+      <input type="text" name=reply class="text user-input">
       <div class="buttons">
           <input class="button reply hide" type="submit" value="&#x21B5;">
       </div>
@@ -22,7 +22,7 @@
   <div id="abort" class="line">
       <div></div>
       <div></div>
-      <form>
+      <form method=post action="{{ url_for('dispatcher', abort=1) }}">
           <div class="buttons">
               <input class="button abort hide" type="submit" value="&#x1F6AB;">
           </div>
@@ -66,12 +66,11 @@
     .loader {
       color: #6a6a6a;
       font-size: 10px;
-      margin: 80px auto;
       position: relative;
       text-indent: -9999em;
-      -webkit-transform: translateZ(0) translateY(30px) translateX(-30px);
-      -ms-transform: translateZ(0) translateY(30px) translateX(-30px);
-      transform: translateZ(0) translateY(30px) translateX(-30px);
+      -webkit-transform: translateZ(0) translateY(-23px) translateX(60px);
+      -ms-transform: translateZ(0) translateY(-23px) translateX(60px);
+      transform: translateZ(0) translateY(-23px) translateX(60px);
       -webkit-animation-delay: -0.16s;
       animation-delay: -0.16s;
     }

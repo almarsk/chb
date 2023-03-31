@@ -13,6 +13,10 @@
             background-color: rgb(169, 169, 169); 
             padding-top: 20vh;  
         }
+        .message{
+            text-align: center;
+            line-height: 1.5;
+        }
         .grid-container {
             width: 60vw;
             min-width: 500px;
@@ -21,12 +25,13 @@
         }
         .line {
             display: grid;
-            grid-template-columns: 1fr 4fr 1fr;
-            gap: 10px;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 25px;
             align-items: center;
         }
         .avatar{
             text-align: right;
+            white-space: nowrap;
         }
         .button{
             width: 3em;
@@ -45,14 +50,12 @@
         }
         .user-input{
             padding-left: 8px;
-            
             border-radius: 8px;
             border: 1px;
             background-color: rgb(213, 213, 213);
             transition: background-color 0.4s;
             font-size: large;
             font-family: var(--font);
-            width: 250px;
         }    
         .user-input:focus{
             outline: none;
@@ -61,7 +64,8 @@
         }
         .text{
             width: 100%;
-            line-height: 1.5;
+            white-space: nowrap;
+            line-height: 1.5;    
         }
         .hide{
             display: none;
