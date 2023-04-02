@@ -68,7 +68,7 @@ if not db_path.is_file():
 # the flow clears the session, as it's taken as a signal of a new
 # conversation starting. Trying to use the app without setting a
 # flow shows an error.
-@app.route("/", methods=["GET", "POST"])
+@app.route("/", methods=("GET", "POST"))
 def dispatcher():
     url_flow = request.args.get("flow") or None
     print(session)
@@ -120,13 +120,12 @@ def intro():
 def chat():
     user = User.query.filter_by(id=session["user_id"]).first()
     user_reply = request.form.get("answer")
-
     if request.method == "POST":
         db.session.add(
             Reply(
                 user_id=user.id,
                 content=user_reply,
-                reaction_ms=request.form.get("reaction-ms"),  # reaction-ms isn't set up yet
+                reaction_ms=request.form.get("reaction-ms"),
             )
         )
     cs = session.setdefault("cs", {})  # conversation state
@@ -137,10 +136,12 @@ def chat():
         session["page"] = "outro"
         response = redirect(url_for("dispatcher"))
     else:
-        db.session.add(Reply(user_id=user.id, content=bot_reply))
+        db.session.add(Reply(user_id=user.id, content=str(bot_reply)))
         response = render_template(
             "chat.html", bot_reply=bot_reply, flow=flow.__name__.capitalize()
         )
+
+    db.session.commit()
     return response
 
 

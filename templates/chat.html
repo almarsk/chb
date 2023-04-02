@@ -26,14 +26,11 @@
         document.querySelector(".user-input").name = "answer"
     })
 
-        const reaction_ms = document.createElement("input")
-        reaction_ms.name = 'reaction-ms'
-        reaction_ms.type = 'hidden'
-        document.querySelector(".grid-container").appendChild(reaction_ms)
-
-        document.querySelector(".abort").addEventListener("click", ()=>{
-            document.querySelector(".grid-container").action="{{ url_for('dispatcher', abort=1)}}"
-        })
+    document.querySelector(".abort").addEventListener("click", ()=>{
+        document.querySelector(".grid-container").action="{{ url_for('dispatcher', abort=1)}}"
+    })
+    
+    const reaction_ms = document.querySelector("#reaction-ms")
 
         document.querySelector(".grid-container").addEventListener("submit", function() {
         reaction_ms.value = Date.now() - start_time;
