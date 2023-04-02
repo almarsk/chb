@@ -1,10 +1,14 @@
-{% extends "base.html" %}
+{% extends "grid.html" %}
 
 {% block title %}
-{{ flow }}
+{{flow}}
 {% endblock %}
 
-{% block body %}
-<p class="message">díky za váš čas &#129481;</p>
-
+{% block js %}
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", ()=>{
+    document.querySelector(".message").innerHTML = 'Díky za Váš čas!'
+    document.querySelector(".center").style.justifyContent = 'center'
+})
+</script>
 {% endblock %}

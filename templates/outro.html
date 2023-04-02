@@ -1,34 +1,32 @@
-{% extends "base.html" %}
+{% extends "grid.html" %}
 
 {% block title %}
 {{flow}}
 {% endblock %}
 
-{% block body %}
-<div class="grid-container">
-    <div id="bot" class="line">
-        <p class="avatar">&#129302; :</p>
-        <p class="text loader">{{bot_reply}}</p>
-        <div></div>
-    </div>
-    <form id="user" class="line" method=post action="{{ url_for('dispatcher') }}">
-        <p class="avatar">&#128100; :</p>
-        <input type="text" name=reply class="text user-input">
-        <div class="buttons">
-            <input class="button reply hide" type="submit" value="&#x21B5;">
-        </div>
-    </form>
-    <div id="abort" class="line">
-        <div></div>
-        <div></div>
-        <form method=post action="{{ url_for('dispatcher', abort=1) }}">
-            <div class="buttons">
-                <input class="button abort hide" type="submit" value="&#x1F6AB;">
-            </div>
-          </form>
-    </div>
-  </div>
-{% endblock %}
-
 {% block js %}
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", ()=>{
+        document.querySelector(".message").innerHTML='{{message}}<br>Prosím ohodnoťte <strong>slovně</strong> a <strong>známkou</strong> jako ve škole:'
+        document.querySelector(".user-eval").classList.remove("hide")
+        document.querySelector(".middle.center").style.gridRow = 'span 2'
+        document.querySelector(".bottom.right").appendChild(document.querySelector(".confirm"))
+        document.querySelector(".bottom.center").remove()
+        document.querySelector(".confirm").classList.remove("hide")
+        document.querySelector(".rating").classList.remove("hide")
+
+        document.querySelector(".confirm").addEventListener("click", e=>{
+            if (!document.querySelector(".user-eval").value){
+                e.preventDefault()
+                document.querySelector(".warning").classList.remove("hide")
+            }
+            if (!document.querySelector(".rating").value){
+                e.preventDefault()
+                document.querySelector(".warning").classList.remove("hide")
+            }
+        })
+    })
+
+
+</script>
 {% endblock %}

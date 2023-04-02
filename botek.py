@@ -3,4 +3,7 @@ def reply(user_reply, cs):
 
     cs["r"] += 1
 
+    if cs["r"] == 4:
+        return None
+
     return cs
