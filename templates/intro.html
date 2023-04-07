@@ -6,6 +6,7 @@
 
 {% block js %}
 <script type="text/javascript">
+    const MAX_NICK_LENGTH = 13
     document.addEventListener("DOMContentLoaded", ()=>{
 
         document.querySelector(".message").innerHTML = 
@@ -23,16 +24,25 @@
             if (shouldSubmit){
                 event.target.form.submit();
             } else {
-                 if (!!document.querySelector(".user-input").value){
-                    shouldSubmit = true
-                    document.querySelector(".message").innerHTML = 
-                    "Můžeme začít.<br> Pokud bude robot říkat nesmysly, ukončete ho červeným tlačítkem."
-                    document.querySelector(".avatar.user").classList.add("hide")
-                    document.querySelector(".user-input").classList.add("hide")
-                    document.querySelector(".warning").classList.add("hide")
-                 } else {
+                if(
+                    !!document.querySelector(".user-input").value && 
+                    document.querySelector(".user-input").value.length > MAX_NICK_LENGTH
+                  ) {
                     document.querySelector(".warning").classList.remove("hide")
-                 }
+                    document.querySelector(".warning").innerHTML = "prosím zvolte přezdívku kratší než <strong>"+MAX_NICK_LENGTH+"<strong> znaků"
+                  } else if (
+                    !document.querySelector(".user-input").value
+                  ) {
+                    document.querySelector(".warning").classList.remove("hide")
+                    document.querySelector(".warning").innerHTML = "prosím zvolte si <strong>přezdívku</strong>"
+                  } else {
+                      shouldSubmit = true
+                      document.querySelector(".message").innerHTML = 
+                      "Můžeme začít.<br> Pokud bude robot říkat nesmysly, ukončete ho červeným tlačítkem."
+                      document.querySelector(".avatar.user").classList.add("hide")
+                      document.querySelector(".user-input").classList.add("hide")
+                      document.querySelector(".warning").classList.add("hide")
+                  }
             }
         })
     })

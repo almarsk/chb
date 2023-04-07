@@ -71,7 +71,7 @@ if not db_path.is_file():
 @app.route("/", methods=("GET", "POST"))
 def dispatcher():
     url_flow = request.args.get("flow") or None
-    print(session)
+    #print(session)
 
     if url_flow is not None:
         # a flow was set via the URL's query string -> start a new conversation
@@ -166,8 +166,7 @@ def outro():
         db.session.commit()
 
         session.clear()
-        sesh = "lolz"
-        return render_template("thanks.html", session=sesh)
+        return render_template("thanks.html")
 
 
 if __name__ == "__main__":
