@@ -2,6 +2,7 @@ import re
 import sqlite3
 import fire
 
+
 def main(query=''):
     conn = sqlite3.connect('chatbot.db')
     cursor_users = conn.cursor()
@@ -25,11 +26,9 @@ def main(query=''):
     replies = cursor_replies.fetchall()
     # Format the conversations
     for user in users:
-        time_date = re.search('(.{10}).(.{8})', user[3])
-        time_end = re.search('(.{10}).(.{8})', user[4])
-        abort = lambda val: "Aborted" if val == 1 else "Did not abort"
 
         def user_bot(who):
+
             if who:
                 if len(user[1]) < 8:
                     return f"{user[1].capitalize()} ({reply[-1] / 1000}s):\t\t"
@@ -38,16 +37,34 @@ def main(query=''):
             else:
                 return f"{user[2].capitalize()}:\t\t\t"
 
-        print(
-            f"User {user[1].capitalize()} (no.{user[0]})\n" +
-            f"Talked to {user[2].capitalize()} " +
-            f"on {time_date.group(1)}\n" +
-            f"from {time_date.group(2)} " +
-            f"to {time_end.group(2)}.\n" +
-            f"{abort(user[5])}, " +
-            f"rated {user[6]}.\n" +
-            f"and commented:\n\t'{user[7].capitalize().strip()}'\n"
-        )
+        # print info of user - TODO make it a return
+        if user[4]:
+            time_date = re.search('(.{10}).(.{8})', user[3])
+            time_end = re.search('(.{10}).(.{8})', user[4])
+            abort = lambda val: "Aborted" if val == 1 else "Did not abort"
+
+            print(
+                f"\n\nUser {user[1].capitalize()} (no.{user[0]})\n" +
+                f"Talked to {user[2].capitalize()} " +
+                f"on {time_date.group(1)}\n" +
+                f"from {time_date.group(2)} " +
+                f"to {time_end.group(2)}.\n" +
+                f"{abort(user[5])}, " +
+                f"rated {user[6]}.\n" +
+                f"and commented:\n\t'{user[7].capitalize().strip()}'"
+            )
+
+        else:
+            time_date = re.search('(.{10}).(.{8})', user[3])
+            print(
+                f"User {user[1].capitalize()} (no.{user[0]})\n" +
+                f"Talked to {user[2].capitalize()} " +
+                f"on {time_date.group(1)}\n" +
+                f"from {time_date.group(2)}\n" +
+                f"and ended the conversation prematurely."
+            )
+
+        # the actual conversation
         for reply in replies:
             if reply[1] == user[0]:
                 print(f"{user_bot(reply[-1])} {reply[2]}")
@@ -66,17 +83,34 @@ def cols(table):
     # return names of table in scheme
     if table == "?":
         cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
-        return "\ntables in scheme are:\n"+str([row[0] for row in cursor.fetchall()])+"\nquery only has acces to user table\n"
+        return "\ntables in scheme are" \
+               ":\n"+str([row[0] for row in cursor.fetchall()])+"\nquery only has acces to user table\n"
 
     # return names of cols in tables
     cursor.execute(f"SELECT name FROM pragma_table_info('{table}')")
     return [row[0] for row in cursor.fetchall()]
 
 
+def raw():
+    conn = sqlite3.connect('chatbot.db')
+    cursor_users = conn.cursor()
+    cursor_replies = conn.cursor()
+    cursor_users.execute(f"SELECT * FROM user;")
+    cursor_replies.execute(f"SELECT * FROM reply;")
+    users = cursor_users.fetchall()
+    replies = cursor_replies.fetchall()
+    for user in users:
+        print(user)
+        for reply in replies:
+            if reply[1] == user[0]:
+                print(reply)
+
+
 if __name__ == '__main__':
     fire.Fire({
         'exp': main,
-        'cols': cols
+        'cols': cols,
+        'raw': raw
     })
 
 

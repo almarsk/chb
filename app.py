@@ -78,7 +78,7 @@ def dispatcher():
         session.clear()
         session["flow"] = url_flow
         try:
-            import_module(url_flow)
+            import_module("flows."+url_flow)
         except ImportError:
             session["page"] = "not_found"
         return redirect(url_for("dispatcher"))
@@ -129,7 +129,7 @@ def chat():
             )
         )
     cs = session.setdefault("cs", {})  # conversation state
-    flow = import_module(session["flow"])
+    flow = import_module("flows."+session["flow"])
     bot_reply = flow.reply(user_reply, cs)
     session.modified = True
     if bot_reply is None:
