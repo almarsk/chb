@@ -41,7 +41,17 @@ def main(query=''):
                 return f"{user[2].capitalize()}:\t\t\t"
 
         # print info of user - TODO make it a return
-        if user[4]:
+
+        if not user[4]:
+            time_date = re.search('(.{10}).(.{8})', user[3])
+            print(
+                f"User {user[1].capitalize()} (no.{user[0]})\n" +
+                f"Talked to {user[2].capitalize()} " +
+                f"on {time_date.group(1)}\n" +
+                f"from {time_date.group(2)}\n" +
+                f"and ended the conversation prematurely."
+            )
+        else:
             time_date = re.search('(.{10}).(.{8})', user[3])
             time_end = re.search('(.{10}).(.{8})', user[4])
             abort = lambda val: "Aborted" if val == 1 else "Did not abort"
@@ -57,15 +67,12 @@ def main(query=''):
                 f"and commented:\n\t'{user[7].capitalize().strip()}'"
             )
 
-        else:
-            time_date = re.search('(.{10}).(.{8})', user[3])
-            print(
-                f"User {user[1].capitalize()} (no.{user[0]})\n" +
-                f"Talked to {user[2].capitalize()} " +
-                f"on {time_date.group(1)}\n" +
-                f"from {time_date.group(2)}\n" +
-                f"and ended the conversation prematurely."
-            )
+
+
+
+
+
+
 
         # the actual conversation
         for reply in replies:
