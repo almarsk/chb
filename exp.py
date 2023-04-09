@@ -1,3 +1,6 @@
+#! venv/bin/python3
+
+
 import re
 import sqlite3
 import fire
@@ -30,7 +33,7 @@ def main(query=''):
         def user_bot(who):
 
             if who:
-                if len(user[1]) < 8:
+                if len(user[1]) < 6:
                     return f"{user[1].capitalize()} ({reply[-1] / 1000}s):\t\t"
                 else:
                     return f"{user[1].capitalize()} ({reply[-1] / 1000}s):\t"
